@@ -12,6 +12,7 @@ define(function(require){
     className: 'asset-preview-panel',
 
     events: {
+      'click .asset-select-button' : 'selectAsset'
     },
 
     preRender: function() {
@@ -29,6 +30,11 @@ define(function(require){
           features: ['playpause','progress','current','duration']
         });
       }
+    },
+
+    selectAsset: function () {
+      var data = {eventToTrigger: 'assetModal:assetSelected', model: this.model};
+      Origin.trigger('modal:passThrough', data);
     }
 
   }, {

@@ -1,0 +1,46 @@
+<div class="modal-popup">
+  <div class="modal-popup-toolbar">
+    <a href="#" class="modal-popup-done">
+      <div class="modal-popup-icon-close fa fa-times"></div>
+    </a>
+  </div>
+  <div class="modal-popup-inner">
+    <div class="modal-popup-content">
+      <div class="modal-popup-content-inner">
+
+        {{#if title}}
+            <div class="modal-popup-title">
+              <h5 class="modal-popup-title-inner">
+                {{{title}}}
+              </h5>
+            </div>
+        {{/if}}
+
+        {{#if body}}
+          <div class="modal-popup-body">
+            <div class="modal-popup-body-inner">
+              {{{body}}}
+            </div>
+          </div>
+        {{/if}}
+
+        {{#if view}}
+          <div class="modal-popup-view">
+            <div class="modal-popup-view-inner"></div>
+          </div>
+        {{/if}}
+
+        <div class="modal-popup-buttons">
+          {{#each _prompts}}
+            <a href="#" class="modal-popup-button modal-popup-prompt-button" data-event="{{_callbackEvent}}">
+              {{{promptText}}}
+            </a>
+          {{/each}}
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal-shadow"></div>

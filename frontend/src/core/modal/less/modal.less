@@ -1,0 +1,92 @@
+// Modal styling
+// ==============
+
+// Modal
+// ======
+
+@modal-color:#3eb4e4;
+@modal-text-color:#fff;
+
+@modal-icon-color:#fff;
+@modal-icon-hover-color:darken(@modal-color, 30%);
+
+@modal-button-color:#fff;
+@modal-button-hover-color:darken(@modal-color, 30%);
+@modal-button-text-color:#3eb4e4;
+@modal-button-text-hover-color:#fff;
+
+@modal-popup-padding-top:30px;
+@modal-popup-padding-right:30px;
+@modal-popup-padding-bottom:30px;
+@modal-popup-padding-left:30px;
+
+@modal-popup-padding:@modal-popup-padding-top @modal-popup-padding-right @modal-popup-padding-bottom @modal-popup-padding-left;
+
+.modal {
+
+    .modal-popup {
+        background-color: @modal-color;
+        color: @modal-text-color;
+
+        a {
+          outline: none;
+          text-decoration: none;
+        }
+    }
+
+    .modal-popup-icon {
+        .icon {
+            font-size:60px;
+            width:60px;
+            height:60px;
+            color: @modal-icon-color;
+        }
+    }
+
+    .modal-popup-buttons {
+        text-align:center;
+        margin-top:10px;
+    }
+
+    .modal-popup-button {
+        background-color:@modal-button-color;
+        color:@modal-button-text-color;
+        padding:6px;
+        display:inline-block;
+        .no-touch &:hover {
+            background-color:darken(@modal-button-hover-color, 10%);
+            color:@modal-button-text-hover-color;
+        }
+    }
+
+    .modal-popup-content-inner {
+        padding-left:80px;
+        @media all and (max-width:800px) {
+            padding-left:0px;
+        }
+    }
+
+    .modal-popup-inner {
+        padding: @modal-popup-padding;
+    }
+
+    .modal-popup-toolbar {
+        text-align:right;
+    }
+
+    .modal-popup-done {
+        padding:@modal-popup-padding;
+        display:inline-block;
+    }
+
+    .modal-popup-icon-close {
+        color: @modal-icon-color;
+        .no-touch &:hover {
+            color:@modal-icon-hover-color;
+        }
+    }
+
+    .modal-shadow {
+        background-color: rgba(255,255,255,0.3);
+    }
+}

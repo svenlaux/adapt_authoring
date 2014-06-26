@@ -4,6 +4,7 @@ define(function(require) {
   var Origin = require('coreJS/app/origin');
   var EditorOriginView = require('editorGlobal/views/editorOriginView');
   var JsonEditor = require('core/libraries/jquery.jsoneditor.min');
+  var AssetManagementView = require('coreJS/assetManagement/views/assetCollectionView');
 
   var EditorComponentEditView = EditorOriginView.extend({
 
@@ -12,12 +13,15 @@ define(function(require) {
     className: "project",
 
     events: {
-      'click .editing-overlay-panel-title': 'toggleContentPanel'
+      'click .editing-overlay-panel-title'        : 'toggleContentPanel',
+      'click input[name="root[_graphic][large]"]' : 'launchAssetModal'
     },
 
     preRender: function() {
+      this.jsoneditor = false;
       this.listenTo(Origin, 'editorComponentEditSidebar:views:save', this.saveComponent);
       this.model.set('ancestors', this.model.getPossibleAncestors().toJSON());
+      this.listenTo(Origin, 'assetModal:assetSelected', this.assetSelected);
     },
 
     toggleContentPanel: function(event) {
@@ -42,16 +46,18 @@ define(function(require) {
         "properties": componentType.get('properties')
       };
 
-      this.$('.component-properties').jsoneditor({
+      var element = document.getElementById('component-properties');
+      this.jsoneditor = new JSONEditor(element, {
         no_additional_properties: true, 
         disable_array_reorder: true,
         disable_collapse: true,
         disable_edit_json: true,
         disable_properties: true,
-        form_name_root: 'briantest',
+        form_name_root: 'root',
         schema: schema,
         startval: this.model.get('properties') 
       });
+
     },
 
     cancel: function (event) {
@@ -61,7 +67,7 @@ define(function(require) {
 
     saveComponent: function() {
 
-      var propertiesJson = this.$('.component-properties').jsoneditor('value');
+      var propertiesJson = this.jsoneditor.getValue();
 
       var model = this.model;
 
@@ -84,6 +90,32 @@ define(function(require) {
           }, this)
         }
       );
+    },
+
+    launchAssetModal: function(e) {
+      var props = {
+        title: 'Asset Manager',
+        body: 'Select an Asset',
+        view: new AssetManagementView(),
+        triggerElement: $(e.currentTarget)
+      };
+      Origin.trigger('modal:open', props);
+    },
+
+    assetSelected : function(asset) {
+      var modalProps = asset.get('_modalProps');
+      var fieldname = modalProps.get('triggerElement').attr('name');
+      var file = asset.get('path');
+      var editor = this.jsoneditor.getEditor(this.fieldnameToReference(fieldname));
+      editor.setValue(file);
+    },
+
+    fieldnameToReference: function (fieldname) {
+      // Eg: convert root[_graphic][large] to root._graphic.large
+      var reference = fieldname.replace("][", ".");
+      reference = reference.replace("]", "");
+      reference = reference.replace("[", ".");
+      return reference;
     }
   },
   {

@@ -24,6 +24,9 @@ define(function(require){
     },
 
     preRender: function() {
+      if (!Origin.assetManagement) {
+        Origin.assetManagement = {};
+      }
       this.listenTo(Origin, 'asset:clearForm', this.resetUploadForm);
     },
 

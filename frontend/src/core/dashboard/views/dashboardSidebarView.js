@@ -40,7 +40,7 @@ define(function(require) {
 
 			Origin.trigger('dashboard:sort:desc');
 		}
-		
+
 	}, {
 		template: 'dashboardSidebar'
 	});

@@ -1,0 +1,51 @@
+// Notify styling
+// ==============
+
+.modal {
+
+    .modal-popup {
+        display: none;
+        position: fixed;
+        top: 50%;
+        width:100%;
+        z-index: 550;
+    }
+
+    .modal-popup-icon {
+        position: absolute;
+        left: 0px;
+        top: 0px;
+        .icon {
+            @media all and (max-width:800px) {
+                float:none;
+                margin: 0 auto;
+            }
+        }
+        @media all and (max-width:800px) {
+            float:none;
+            margin: 0px auto;
+            position:static;
+        }
+    }
+
+    .modal-popup-content {
+    }
+
+    .modal-popup-content-inner {
+        position:relative;
+    }
+
+    .modal-popup-done {
+        display:inline-block;
+    }
+
+    .modal-shadow {
+        display: none;
+        position: fixed;
+        top: 0px;
+        left: 0px;
+        width: 100%;
+        height: 100%;
+        z-index: 549;
+    }
+}
