@@ -19,9 +19,10 @@ define(function(require){
     events: {},
 
     preRender: function() {
+      this._isModal = false; // options._isModal?
       this.collection = new AssetCollection();
       this.collection.fetch();
-      
+
       this.listenTo(this.collection, 'sync', this.setupFilteredCollection);
       this.listenTo(Origin, 'assets:update', this.refreshCollection);
       this.listenTo(Origin, 'assetItemView:preview', this.loadPreview);
@@ -96,6 +97,7 @@ define(function(require){
     },
 
     loadPreview: function (previewModel) {
+      previewModel.set('_isModal', this._isModal);
       this.$('.asset-preview').empty().append(new AssetPreview({model: previewModel}).$el);
     },
 
